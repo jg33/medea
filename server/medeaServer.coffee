@@ -13,14 +13,12 @@ sharedData = {
 connectedUsers = 0
 
 handleHello = (data)->
-  console.log("hello "+ data)
-  console.log(@id)
+  console.log("hello "+ @id)
   io.sockets.sockets[@id].emit('pingback',sharedData)
 
-handleCheck = (data)->
-  console.log("check in")
-  io.sockets.sockets[@id].emit('pingback',sharedData)
-  console.log(@id +" pinged.")
+clickTest = (data)->
+  console.log("clicked in: " + @id)
+  io.sockets.sockets[@id].emit('showMsg',"HI, DUM DUM")
 
 
 
@@ -30,6 +28,7 @@ io.on('connection', (socket)->
   console.log("user connected! "+connectedUsers+" connected. ID= "+socket.id)
 
   socket.on('hello', handleHello)
+  socket.on('clickTest', clickTest)
   socket.on('disconnect', ()->
     connectedUsers--
     console.log("disconnected... "+connectedUsers+" left.")
@@ -45,12 +44,31 @@ setScene = (newScene)->
 
 process.stdin.on('keypress', (ch, key)->
   console.log('got keypress ', key)
-  if (key && key.ctrl && key.name == 'c')
-    process.stdin.pause()
+  if (key &&  key.name == 'x')
+    process.exit()
   else if (key && key.name == 'q')
     setScene(1)
   else if (key && key.name == 'w')
     setScene(2)
+  else if (key && key.name == 'e')
+   setScene(3)
+  else if (key && key.name == 'r')
+    setScene(4)
+  else if (key && key.name == 't')
+    setScene(5)
+  else if (key && key.name == 'y')
+    setScene(6)
+  else if (key && key.name == 'u')
+    setScene(7)
+  else if (key && key.name == 'i')
+    setScene(8)
+  else if (key && key.name == 'o')
+    setScene(9)
+  else if (key && key.name == 'p')
+    setScene(10)
+
+
+
 
 )
 
